@@ -1,7 +1,3 @@
-#ifndef MA_COINIT_VALUE
-#define MA_COINIT_VALUE 2 /* COINIT_APARTMENTTHREADED */
-#endif
-#define MINIAUDIO_IMPLEMENTATION
 #include "miniaudio.h"
 #include "imgui.h"
 #include "imgui_impl_win32.h"

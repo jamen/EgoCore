@@ -29,6 +29,38 @@ I believe the tools to keep this game alive should be accessible to everyone. Th
 * A clean installation of Fable: The Lost Chapters.
 * Windows 10 / 11 (64-bit).
 
+## 🛠️ Building
+
+EgoCore builds with CMake (3.25+), MSVC or clang-cl, and a Rust toolchain (1.88+, for the def compiler in `extern/fable-defs`, which CMake builds and links automatically). The submodule is fetched on the first configure if your clone doesn't have it.
+
+**Visual Studio 2022** (with the *Desktop development with C++* workload, which includes CMake and Ninja) and [Rust](https://rustup.rs):
+
+1. **File › Open › Folder…** and pick the repository root. Visual Studio reads `CMakePresets.json` and configures automatically.
+2. Choose **Windows x64 Debug** or **Windows x64 Release** in the configuration dropdown on the toolbar.
+3. Pick **EgoCore.exe** as the startup item and press F5. It runs from the `EgoCore/` folder (set in `.vs/launch.vs.json`), so it finds `egocore_config.ini` and `Assets/` there. Release builds request administrator rights, so Visual Studio itself has to run as administrator to debug them.
+
+Output goes to `build/<preset>/` (`EgoCore.exe` and `EgoCore.pdb`).
+
+**Windows command line**, from an *x64 Native Tools Command Prompt for VS*:
+
+```
+cmake --preset windows-release
+cmake --build --preset windows-release
+```
+
+**Cross-compiling from Linux** (builds the Windows exe; nothing is built *for* Linux). The Nix devshell (`nix develop`, or `direnv allow`) provides clang, lld, LLVM tools, CMake, Ninja, Rust and `xwin`:
+
+```
+nix develop
+xwin --accept-license --temp splat --output "$XWIN_DIR"   # once, downloads the Windows SDK (~1 GB)
+cmake --preset linux-cross-release
+cmake --build --preset linux-cross-release
+```
+
+Without Nix, install `clang`/`clang-cl`, `lld`, `llvm` (`llvm-rc`, `llvm-mt`), `cmake`, `ninja`, a host C toolchain (Rust needs it to link proc macros) and Rust with the `x86_64-pc-windows-msvc` target, splat the SDK with `xwin`, and set `XWIN_DIR` to its output.
+
+The `*-debug` presets give a Debug build. `cmake --install build/<preset> --prefix <dir>` assembles a folder with the exe.
+
 ## 🤝 Community & Support
 
 Developing a tool of this scale involves hundreds of hours of reverse engineering, debugging, and refinement. I don't believe in paywalling progress, so I rely entirely on the generosity of the community to keep this project sustainable. 

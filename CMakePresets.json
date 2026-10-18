@@ -1,0 +1,57 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": { "CMAKE_EXPORT_COMPILE_COMMANDS": "ON" }
+    },
+    {
+      "name": "windows",
+      "hidden": true,
+      "inherits": "base",
+      "architecture": { "value": "x64", "strategy": "external" },
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows" }
+    },
+    {
+      "name": "linux-cross",
+      "hidden": true,
+      "inherits": "base",
+      "toolchainFile": "${sourceDir}/cmake/toolchain-clang-cl-xwin.cmake",
+      "condition": { "type": "notEquals", "lhs": "${hostSystemName}", "rhs": "Windows" }
+    },
+    {
+      "name": "windows-debug",
+      "displayName": "Windows x64 Debug",
+      "inherits": "windows",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Windows x64 Release",
+      "inherits": "windows",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "linux-cross-debug",
+      "displayName": "Windows x64 Debug (cross-compiled with clang-cl + xwin)",
+      "inherits": "linux-cross",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "linux-cross-release",
+      "displayName": "Windows x64 Release (cross-compiled with clang-cl + xwin)",
+      "inherits": "linux-cross",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    }
+  ],
+  "buildPresets": [
+    { "name": "windows-debug", "configurePreset": "windows-debug" },
+    { "name": "windows-release", "configurePreset": "windows-release" },
+    { "name": "linux-cross-debug", "configurePreset": "linux-cross-debug" },
+    { "name": "linux-cross-release", "configurePreset": "linux-cross-release" }
+  ]
+}

@@ -727,7 +727,15 @@ typedef unsigned char validate_uint32[sizeof(stbi__uint32)==4 ? 1 : -1];
 
 #ifdef _MSC_VER
 
-#if _MSC_VER >= 1400  // not VC6
+#if defined(__clang__)  // clang-cl: the SDK's <directxmath.h> includes clang's <cpuid.h>, where __cpuid is a 5-arg macro
+#include <cpuid.h>
+static int stbi__cpuid3(void)
+{
+   unsigned int a, b, c, d;
+   __cpuid(1, a, b, c, d);
+   return (int) d;
+}
+#elif _MSC_VER >= 1400  // not VC6
 #include <intrin.h> // __cpuid
 static int stbi__cpuid3(void)
 {
