@@ -31,7 +31,7 @@ I believe the tools to keep this game alive should be accessible to everyone. Th
 
 ## 🛠️ Building
 
-EgoCore builds with CMake (3.25+), MSVC or clang-cl, and a Rust toolchain (1.88+, for the def compiler in `extern/fable-defs`, which CMake builds and links automatically). The submodule is fetched on the first configure if your clone doesn't have it.
+EgoCore and the `StaticTerrainBankCompiler` library/standalone tool build with CMake (3.25+), MSVC or clang-cl, and a Rust toolchain (1.88+, for the def compiler in `extern/fable-defs`, which CMake builds and links automatically). The submodule is fetched on the first configure if your clone doesn't have it.
 
 **Visual Studio 2022** (with the *Desktop development with C++* workload, which includes CMake and Ninja) and [Rust](https://rustup.rs):
 
@@ -39,7 +39,7 @@ EgoCore builds with CMake (3.25+), MSVC or clang-cl, and a Rust toolchain (1.88+
 2. Choose **Windows x64 Debug** or **Windows x64 Release** in the configuration dropdown on the toolbar.
 3. Pick **EgoCore.exe** as the startup item and press F5. It runs from the `EgoCore/` folder (set in `.vs/launch.vs.json`), so it finds `egocore_config.ini` and `Assets/` there. Release builds request administrator rights, so Visual Studio itself has to run as administrator to debug them.
 
-Output goes to `build/<preset>/` (`EgoCore.exe` and `EgoCore.pdb`).
+Output goes to `build/<preset>/` (`EgoCore.exe`, `stb_compiler.exe`, and their PDBs). To build only the STB tools, use `cmake --build --preset <preset> --target stb_compiler`.
 
 **Windows command line**, from an *x64 Native Tools Command Prompt for VS*:
 
@@ -48,7 +48,7 @@ cmake --preset windows-release
 cmake --build --preset windows-release
 ```
 
-**Cross-compiling from Linux** (builds the Windows exe; nothing is built *for* Linux). The Nix devshell (`nix develop`, or `direnv allow`) provides clang, lld, LLVM tools, CMake, Ninja, Rust and `xwin`:
+**Cross-compiling from Linux** (builds the Windows executables; nothing is built *for* Linux). The Nix devshell (`nix develop`, or `direnv allow`) provides clang, lld, LLVM tools, CMake, Ninja, Rust and `xwin`:
 
 ```
 nix develop
@@ -59,7 +59,7 @@ cmake --build --preset linux-cross-release
 
 Without Nix, install `clang`/`clang-cl`, `lld`, `llvm` (`llvm-rc`, `llvm-mt`), `cmake`, `ninja`, a host C toolchain (Rust needs it to link proc macros) and Rust with the `x86_64-pc-windows-msvc` target, splat the SDK with `xwin`, and set `XWIN_DIR` to its output.
 
-The `*-debug` presets give a Debug build. `cmake --install build/<preset> --prefix <dir>` assembles a folder with the exe.
+The `*-debug` presets give a Debug build. `cmake --install build/<preset> --prefix <dir>` assembles a folder with the executables.
 
 ## 🤝 Community & Support
 

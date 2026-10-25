@@ -242,7 +242,18 @@ When compilation completes successfully, two files are written to the output des
 
 ## Building from Source
 
-The STB compiler can be compiled directly using the included Visual Studio batch scripts:
+The recommended build is the repository's CMake build, which also cross-compiles
+from Linux via the Nix dev shell (see the top-level `README.md`):
+
+```sh
+cmake --preset linux-cross-release          # or windows-release
+cmake --build --preset linux-cross-release --target stb_compiler
+```
+
+This produces `stb_compiler.exe` and `StaticTerrainBank.lib` in
+`build/<preset>/`. EgoCore links the same `StaticTerrainBank` target.
+
+On Windows, the included batch scripts are still available:
 
 1. **Build Static Library (`lib\StaticTerrainBank.lib`):**
    ```cmd
