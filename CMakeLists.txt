@@ -79,6 +79,7 @@ target_compile_options(stb_compiler PRIVATE /permissive- /W3)
 target_link_libraries(stb_compiler PRIVATE
   StaticTerrainBank
   d3d11 d3dcompiler dxgi shell32 ole32 user32 gdi32 comdlg32 advapi32 dwmapi imm32)
+target_link_options(stb_compiler PRIVATE "$<$<CONFIG:Release>:/DEBUG;/OPT:REF;/OPT:ICF>")
 
 add_executable(EgoCore WIN32
   ${SRC}/main.cpp
