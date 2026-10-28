@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Builds and links the native def compiler from extern/fable-defs.
+  Builds and links the native def compiler from FableDefs.
 
   The compiler is a Rust crate (`def-compiler-sys`) that exposes a small C API.
   It is built from source as a static library and linked into EgoCore, so there
   is no DLL to ship and no prebuilt binary committed to this repository.
 
   Requirements:
-    * The extern/fable-defs submodule (this file initializes it if missing).
+    * The FableDefs submodule (this file initializes it if missing).
     * A Rust toolchain — https://rustup.rs. The MSVC target is the default on
       Windows, so a stock `rustup-init` install is enough.
 
@@ -18,7 +18,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <FableDefsDir Condition="'$(FableDefsDir)' == ''">$(MSBuildThisFileDirectory)extern\fable-defs</FableDefsDir>
+    <FableDefsDir Condition="'$(FableDefsDir)' == ''">$(MSBuildThisFileDirectory)FableDefs</FableDefsDir>
     <FableDefsManifest>$(FableDefsDir)\Cargo.toml</FableDefsManifest>
 
     <!-- The compiler does real work, so it is always built optimized: a debug
@@ -43,7 +43,7 @@
 
   <Target Name="FableDefsEnsureSources" BeforeTargets="ClCompile">
     <Exec Condition="!Exists('$(FableDefsManifest)')"
-          Command="git submodule update --init --recursive -- &quot;extern/fable-defs&quot;"
+          Command="git submodule update --init --recursive -- &quot;FableDefs&quot;"
           WorkingDirectory="$(MSBuildThisFileDirectory)"
           ContinueOnError="true" />
     <Error Condition="!Exists('$(FableDefsManifest)')"

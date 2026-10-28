@@ -124,7 +124,7 @@
     <ResourceCompile Include="EgoCore.rc" />
   </ItemGroup>
   <!-- The FableDefCompiler static library is superseded by the native def
-       compiler (extern/fable-defs) and is no longer referenced. It also required
+       compiler (FableDefs) and is no longer referenced. It also required
        a vcpkg zlib, which EgoCore no longer needs. The project itself is still
        in the solution if you want it back. -->
   <PropertyGroup Label="Globals">
@@ -180,7 +180,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)extern\fable-defs\packages\def-compiler-sys\include;$(ProjectDir)Definitions;$(ProjectDir)TextEditor;$(ProjectDir)Text;$(ProjectDir)Textures;$(ProjectDir)Utilities;$(ProjectDir)Meshes;$(ProjectDir)Banks;$(ProjectDir)Animations;$(ProjectDir)Utilities\ImGUI;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Definitions;$(ProjectDir)TextEditor;$(ProjectDir)Text;$(ProjectDir)Textures;$(ProjectDir)Utilities;$(ProjectDir)Meshes;$(ProjectDir)Banks;$(ProjectDir)Animations;$(ProjectDir)Utilities\ImGUI;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)Lipsync;$(ProjectDir)Audio;$(ProjectDir)Definitions;$(ProjectDir)TextEditor;$(ProjectDir)Text;$(ProjectDir)Textures;$(ProjectDir)Utilities;$(ProjectDir)Meshes;$(ProjectDir)Banks;$(ProjectDir)Animations;$(ProjectDir)Utilities\ImGUI;$(IncludePath)</IncludePath>

@@ -1,3 +1,3 @@
-[submodule "extern/fable-defs"]
-	path = extern/fable-defs
+[submodule "FableDefs"]
+	path = FableDefs
 	url = https://github.com/jamen/fable-defs
