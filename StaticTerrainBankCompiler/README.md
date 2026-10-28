@@ -242,6 +242,8 @@ When compilation completes successfully, two files are written to the output des
 
 ## Building from Source
 
+### Visual Studio
+
 The STB compiler can be compiled directly using the included Visual Studio batch scripts:
 
 1. **Build Static Library (`lib\StaticTerrainBank.lib`):**
@@ -256,3 +258,13 @@ The STB compiler can be compiled directly using the included Visual Studio batch
    ```
 
 Both scripts use MSVC `cl.exe` with C++20 (`/std:c++20 /O2 /EHsc /MD`).
+
+### Nix cross-build
+
+From the repository root:
+
+```sh
+nix build .#stb-compiler
+```
+
+This cross-compiles the Windows `stb_compiler.exe` from Linux using the same Nix flake and Windows SDK as the full EgoCore build. The output is `result/bin/stb_compiler.exe`.

@@ -29,6 +29,37 @@ I believe the tools to keep this game alive should be accessible to everyone. Th
 * A clean installation of Fable: The Lost Chapters.
 * Windows 10 / 11 (64-bit).
 
+## 🛠️ Building
+
+### Windows / Visual Studio
+
+Open `EgoCore.sln` in Visual Studio 2022 and build the `x64` `Release` or `Debug` configuration. The solution includes both the EgoCore application and the `StaticTerrainBankCompiler` project; `stb_compiler.exe` can also be built with the batch scripts in `StaticTerrainBankCompiler/`.
+
+### Linux → Windows cross-build with Nix
+
+The repository includes a Nix flake that cross-compiles the Windows executables from Linux using clang-cl, lld-link, and a pinned Windows SDK downloaded through `xwin`:
+
+```sh
+nix build .#egocore        # builds EgoCore.exe and stb_compiler.exe
+nix build .#stb-compiler   # exposes only stb_compiler.exe
+nix build .#windows-sdk    # the xwin SDK used by the build
+nix build .#fable-defs     # the native Rust def compiler
+```
+
+`nix build .#egocore` produces `result/bin/EgoCore.exe`; `nix build .#stb-compiler` produces `result/bin/stb_compiler.exe`.
+
+For interactive development, use the dev shell:
+
+```sh
+nix develop
+# or, with direnv:
+direnv allow
+```
+
+The dev shell provides the Rust toolchain, clang-cl, lld, the LLVM resource/bin tools, and `xwin`. `XWIN_DIR` points at the Nix-provided Windows SDK. This cross-builds Windows binaries on Linux; it does not produce a native Linux build of EgoCore.
+
+The Visual Studio projects remain the canonical Windows build. The Nix build is an alternate, reproducible cross-compilation path.
+
 ## 🤝 Community & Support
 
 Developing a tool of this scale involves hundreds of hours of reverse engineering, debugging, and refinement. I don't believe in paywalling progress, so I rely entirely on the generosity of the community to keep this project sustainable. 

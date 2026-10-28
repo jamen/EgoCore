@@ -1,0 +1,66 @@
+{
+  "nodes": {
+    "fable-defs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785949184,
+        "narHash": "sha256-pd8q66B008tO8A3Cl32xl2KDU8sNMSa71jMLlhUSLoM=",
+        "ref": "refs/heads/main",
+        "rev": "fc6598ad442c60857ecb8735c97b1d1160ceec4a",
+        "revCount": 31,
+        "type": "git",
+        "url": "https://github.com/jamen/fable-defs"
+      },
+      "original": {
+        "rev": "fc6598ad442c60857ecb8735c97b1d1160ceec4a",
+        "type": "git",
+        "url": "https://github.com/jamen/fable-defs"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1790822859,
+        "narHash": "sha256-69xHQhAeMAD2wDXO7T2pcOZIF9Sga2W+JkmY2a11Ops=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c59305bab2065cfecc4944690d9eedbb56f3a9fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "fable-defs": "fable-defs",
+        "nixpkgs": "nixpkgs",
+        "rust-overlay": "rust-overlay"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790928989,
+        "narHash": "sha256-5r3MN/Rx7N9tLapCBmUq6/zCc3C9J7gNif1HybD1fJQ=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "368fee9beaab04ca6fe7af28db63caa9badb22fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
